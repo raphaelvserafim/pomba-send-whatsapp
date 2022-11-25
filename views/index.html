@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-      />
-    <title>Pomba</title>
 
-    <link rel="stylesheet" href="./css/neumorphism.css" />
+<head>
+  <meta charset="UTF-8" />
 
-  </head>
+  <title>Pomba</title>
 
-  <body>
+  <link rel="stylesheet" href="./css/neumorphism.css" />
+  <link rel="stylesheet" href="./css/google.css" />
 
-    <div class="h-100 d-flex align-items-center justify-content-center py-5">
+</head>
 
-      <div class="col-md-5">
-        <div class="card bg-primary shadow-soft border-light py-2" style="max-width: 350px;">
-          <div class="card-body text-center text-md-left">
-              <div class="card-header text-center pb-0">
-                <h1 class="mb-0 h5">ACESSAR</h1>
-              </div>
-              <div class="card-body">
-                  <div class="form-group">
-                    <label for="nome">Seu nome</label>
-                    <div class="input-group mb-4">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <span class="fa fa-user"></span></span>
-                      </div>
-                      <input class="form-control" name="nome" id="nome"
-                        placeholder="Seu nome" type="text" aria-label="nome"
-                        required>
-                    </div>
+<body>
+
+  <app-root> </app-root>
+
+  <div class="h-100 d-flex align-items-center justify-content-center py-5">
+    <div class="col-5" style="max-width: 350px;">
+      <div class="card bg-primary shadow-soft border-light py-2">
+        <div class="card-body text-center text-md-left">
+          <div class="card-header text-center pb-0">
+            <h1 class="mb-0 h5">Authorize</h1>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <span class="material-icons"> vpn_key </span>
                   </div>
+                  <input id="start_key" class="form-control" name="key" placeholder="Your key" type="password" required>
                 </div>
+                <button onclick="Auth.login()" type="button" class="btn">Send</button>
               </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-  </body>
 
-  <script src="./js/jquery.min.js"></script>
-  <script src="./js/popper.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
+</body>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/popper.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+
+<script src="./js/Auth.js"></script>
+
+
+<script>
+  window.addEventListener('load', async function () {
+    console.info("OK");
+  });
+  window.addEventListener('popstate', async function () {
+    console.info("OK");
+  });
+</script>
+
 </html>
