@@ -2,6 +2,8 @@
 
 class Aplication {
 
+	instances = [];
+
 	static async LoadPage(page) {
 		return await (await fetch(page)).text();
 	}
@@ -16,8 +18,7 @@ class Aplication {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
-	 
-  
+
 
 }
 

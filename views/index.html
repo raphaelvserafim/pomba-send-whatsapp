@@ -6,11 +6,21 @@
   <title>Pomba</title>
   <link rel="stylesheet" href="./css/neumorphism.css" />
   <link rel="stylesheet" href="./css/google.css" />
+
+  <style>
+    .icone-menu {
+      font-size: 19px;
+      position: relative;
+      top: 3px;
+    }
+  </style>
 </head>
 
 <body>
-
-  <app-root> </app-root>
+  
+  <div class="container">
+    <app-root> </app-root>
+  </div>
 
 </body>
 
@@ -18,15 +28,12 @@
 <script src="./js/popper.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="../src/Auth.js"></script>
-
+<script src="../src/Pagina.js"></script>
 
 <script>
-  // const App = require("../src/App");
 
   window.addEventListener('load', async function () {
-
     await Auth.startSessao();
-
   });
 
 

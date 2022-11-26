@@ -1,5 +1,6 @@
 const { DB } = require("../src/DB");
 const App = require("../src/Aplication");
+ 
 
 class Auth {
 
@@ -11,6 +12,8 @@ class Auth {
 		} else {
 			document.querySelector("app-root").innerHTML = await App.Aplication.LoadPage('./home.html');
 		}
+
+		 
 	}
 
 

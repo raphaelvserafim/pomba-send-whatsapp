@@ -1,7 +1,11 @@
 const { app, BrowserWindow } = require('electron');
 const { DB } = require('./DB');
-
+var fs = require('fs');
 const path = require("path");
+const { WhatsApp } = require('./Whatsapp');
+
+
+const instances = {};
 
 async function createWindow() {
 
@@ -17,6 +21,17 @@ async function createWindow() {
 
 	await DB.createTables();
 
+
+	const instancias = await DB.instancias();
+	if (instancias.length > 0) {
+		instancias.map((r) => {
+			const whatsapp = new WhatsApp(r.instance);
+			instances[r.instance] = whatsapp.connect();
+		})
+	}
+
+
+
 	const verificacao = await DB.veficacao_key();
 
 	if (verificacao) {
@@ -27,6 +42,16 @@ async function createWindow() {
 		}
 	}
 
+	console.info(instances);
+
+
+	fs.writeFile("../instances.json", JSON.stringify(instances), function (err) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log("The file was saved!");
+		}
+	});
 	//mainWindow.maximize();
 
 }
@@ -47,3 +72,5 @@ app.on("window-all-closed", () => {
 		app.quit();
 	}
 });
+
+
