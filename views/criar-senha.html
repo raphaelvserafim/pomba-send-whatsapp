@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+
+	<title>Pomba</title>
+
+	<link rel="stylesheet" href="./css/neumorphism.css" />
+	<link rel="stylesheet" href="./css/google.css" />
+
+</head>
+
+<body>
+
+	<div class="h-100 d-flex align-items-center justify-content-center py-5">
+		<div class="col-5" style="max-width: 450px;">
+			<div class="card bg-primary shadow-soft border-light py-2">
+				<div class="card-body text-center text-md-left">
+					<div class="card-header text-center pb-0">
+						<h1 class="mb-0 h5">CRIAR UMA SENHA</h1>
+					</div>
+					<div class="card-body">
+						<form>
+							<div class="form-group">
+								<div class="input-group mb-4">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<span class="material-icons">password</span>
+									</div>
+									<input class="form-control" id="senha_a" placeholder="Informe uma senha"
+										type="password" required>
+								</div>
+								<div class="input-group mb-4">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<span class="material-icons">password</span>
+									</div>
+									<input class="form-control" id="senha_b" placeholder="Novamente a senha"
+										type="password" required>
+								</div>
+
+								<button id="btn-criar-senha" onclick="Auth.criarSenha()" type="button" class="btn">Criar Senha</button>
+							</div>
+							
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/popper.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="../src/Auth.js"></script>
+
+</html>
