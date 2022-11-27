@@ -2,8 +2,7 @@ const QRCode = require('qrcode')
 const pino = require('pino')
 const { default: makeWASocket, DisconnectReason, Browsers, fetchLatestBaileysVersion, useMultiFileAuthState } = require('@adiwajshing/baileys')
 const fs = require('fs');
-const instancesJSON = require("../instances.json");
-
+ 
 
 class WhatsApp {
 
