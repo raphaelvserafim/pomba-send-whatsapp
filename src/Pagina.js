@@ -29,17 +29,25 @@ class Pagina {
 
 
 		const instancias = await DB.instancias();
-		console.info(instancias);
+
 		if (instancias.length > 0) {
 			let tr = '';
-			instancias.map(async (r) => {
+			instancias.map((r) => {
+				App.Aplication.getInfor(r.instance);
+				var conexao = `<span class="badge badge-success">conectado</span>`;
+				// if (intsancia.online) {
 
-				let conexao = `<span class="badge badge-success">conectado</span>`;
+				// } else {
+				// 	var conexao = `<span class="badge badge-danger">desconectado</span> 
+				// 	<button  onclick="Pagina.qrcode('${r.instance}')"  class="btn btn-icon-only btn-primary btn-pill" type="button">
+				// 	<span class="material-icons icone-menu">qrCode</span>
+				//     </button> `;
+				// }
 				tr += `
 				   <tr>
 						<th>${r.id}</th>
 						<td></td>
-						<td> </td>
+						<td id="conexao-${r.instance}"> ${conexao}</td>
 						<td>
 						<button  onclick="Pagina.deletarInstancia(${r.id})"  class="btn btn-icon-only btn-primary btn-pill text-danger" type="button">
 						<span class="material-icons icone-menu">delete</span>
@@ -47,6 +55,7 @@ class Pagina {
 					</tr>
 			`;
 			});
+
 			document.querySelector("tbody").innerHTML = tr;
 		}
 	}
@@ -76,5 +85,14 @@ class Pagina {
 		}
 	}
 
+
+	static async qrcode(key) {
+
+
+
+
+
+
+	}
 
 }

@@ -1,8 +1,14 @@
+const fs = require('fs');
+const { DB } = require("./DB");
+const { WhatsApp } = require("./Whatsapp");
 
+
+global.instances = {};
 
 class Aplication {
 
-	instances = [];
+	static instances = {};
+
 
 	static async LoadPage(page) {
 		return await (await fetch(page)).text();
@@ -19,7 +25,29 @@ class Aplication {
 	}
 
 
+	static async restore() {
 
+		const instancias = await DB.instancias();
+		if (instancias.length > 0) {
+			const instances = {};
+			instancias.map(async (r) => {
+				const whatsapp = new WhatsApp(r.instance);
+				const conn = await whatsapp.connect();
+				instances[r.instance] = conn;
+
+			})
+			await this.sleep(2000);
+			global.instances = instances;
+
+		}
+
+
+
+	}
+
+	static getInfor(key) {
+		console.info(global.instances);
+	}
 }
 
 

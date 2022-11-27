@@ -1,7 +1,8 @@
 const QRCode = require('qrcode')
 const pino = require('pino')
 const { default: makeWASocket, DisconnectReason, Browsers, fetchLatestBaileysVersion, useMultiFileAuthState } = require('@adiwajshing/baileys')
-
+const fs = require('fs');
+const instancesJSON = require("../instances.json");
 
 
 class WhatsApp {
@@ -15,17 +16,13 @@ class WhatsApp {
 	};
 
 
-	connect() {
-		this.setHandlers();
-		return this;
-	};
-
-
-	async setHandlers() {
-
+	async connect() {
 
 		const { version, isLatest } = await fetchLatestBaileysVersion();
 		const { state, saveCreds } = await useMultiFileAuthState(`./sessions/${this.key}/`);
+
+		this.saveCreds = saveCreds;
+
 		const socketConfig = {
 			version,
 			auth: state,
@@ -56,14 +53,21 @@ class WhatsApp {
 			},
 		};
 
-		const socket = makeWASocket(socketConfig);
+		this.socket = makeWASocket(socketConfig);
 
-		this.socket = socket;
+		await this.setHandlers();
 
-		socket.ev.on("creds.update", saveCreds);
+		return this;
+
+	};
+
+	async setHandlers() {
 
 
-		socket.ev.on("connection.update", async (update) => {
+		this.socket.ev.on("creds.update", this.saveCreds);
+
+
+		this.socket.ev.on("connection.update", async (update) => {
 
 			const { connection, lastDisconnect, } = update;
 
@@ -71,25 +75,26 @@ class WhatsApp {
 				this.online = false;
 				return;
 			} else if (connection === "close") {
+				this.online = false;
+				 
 
 			} else if (connection === 'open') {
-
 				this.online = true;
 				this.qrcodeCount = 0;
 				this.qrCode = '';
-
+				 
 			}
 
 			if (update.qr) {
 				if (this.qrcodeCount >= 5) {
-					socket.ev.removeAllListeners("connection.update");
-					this.instance.qrCode = '';
-					return socket.end(new Boom("QR code limit", { statusCode: DisconnectReason.badSession, }));
+					this.socket.ev.removeAllListeners("connection.update");
+					this.qrCode = '';
+					return this.socket.end(new Boom("QR code limit", { statusCode: DisconnectReason.badSession, }));
 				}
 				QRCode.toDataURL(update.qr).then((url) => {
 					this.qrcodeCount++;
 					this.qrCode = url;
-					// global.instances[this.key].qrCode = url
+					 
 				});
 			}
 		});
